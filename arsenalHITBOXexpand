@@ -1,0 +1,190 @@
+-- Made By .bluuu.
+-- Working On Solara
+-- B to close/open GUI
+
+-- Instances:
+
+local SilentAim = Instance.new("ScreenGui")
+local GUI = Instance.new("Frame")
+local UICorner = Instance.new("UICorner")
+local TopText = Instance.new("TextLabel")
+local UICorner_2 = Instance.new("UICorner")
+local EnableSilentAim = Instance.new("TextButton")
+local UICorner_3 = Instance.new("UICorner")
+local BottomText = Instance.new("TextLabel")
+local UICorner_4 = Instance.new("UICorner")
+local Keybind = Instance.new("TextLabel")
+local UICorner_5 = Instance.new("UICorner")
+
+--Properties:
+
+SilentAim.Name = "Silent Aim"
+SilentAim.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+SilentAim.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+GUI.Name = "GUI"
+GUI.Parent = SilentAim
+GUI.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+GUI.BorderColor3 = Color3.fromRGB(0, 0, 0)
+GUI.BorderSizePixel = 0
+GUI.Position = UDim2.new(0.394095004, 0, 0.440898359, 0)
+GUI.Size = UDim2.new(0, 365, 0, 280)
+
+UICorner.Parent = GUI
+
+TopText.Name = "Top Text"
+TopText.Parent = GUI
+TopText.BackgroundColor3 = Color3.fromRGB(27, 42, 53)
+TopText.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TopText.BorderSizePixel = 0
+TopText.Size = UDim2.new(0, 365, 0, 52)
+TopText.Font = Enum.Font.Bangers
+TopText.Text = "Solara Arsenal Silent Aim"
+TopText.TextColor3 = Color3.fromRGB(96, 96, 96)
+TopText.TextSize = 40.000
+
+UICorner_2.Parent = TopText
+
+EnableSilentAim.Name = "Enable Silent Aim"
+EnableSilentAim.Parent = GUI
+EnableSilentAim.BackgroundColor3 = Color3.fromRGB(96, 96, 96)
+EnableSilentAim.BorderColor3 = Color3.fromRGB(0, 0, 0)
+EnableSilentAim.BorderSizePixel = 0
+EnableSilentAim.Position = UDim2.new(0.249315068, 0, 0.410714298, 0)
+EnableSilentAim.Size = UDim2.new(0, 200, 0, 50)
+EnableSilentAim.Font = Enum.Font.Bangers
+EnableSilentAim.Text = "Enable Silent Aim"
+EnableSilentAim.TextColor3 = Color3.fromRGB(0, 0, 0)
+EnableSilentAim.TextSize = 30.000
+
+UICorner_3.Parent = EnableSilentAim
+
+BottomText.Name = "Bottom Text"
+BottomText.Parent = GUI
+BottomText.BackgroundColor3 = Color3.fromRGB(27, 42, 53)
+BottomText.BorderColor3 = Color3.fromRGB(0, 0, 0)
+BottomText.BorderSizePixel = 0
+BottomText.Position = UDim2.new(0, 0, 0.821428597, 0)
+BottomText.Size = UDim2.new(0, 365, 0, 50)
+BottomText.Font = Enum.Font.Bangers
+BottomText.Text = "Made By .bluuu."
+BottomText.TextColor3 = Color3.fromRGB(96, 96, 96)
+BottomText.TextSize = 30.000
+
+UICorner_4.Parent = BottomText
+
+Keybind.Name = "Keybind"
+Keybind.Parent = GUI
+Keybind.BackgroundColor3 = Color3.fromRGB(27, 42, 53)
+Keybind.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Keybind.BorderSizePixel = 0
+Keybind.Position = UDim2.new(0.249315068, 0, 0.675000012, 0)
+Keybind.Size = UDim2.new(0, 195, 0, 21)
+Keybind.Font = Enum.Font.Bangers
+Keybind.Text = "To Toggle The Menu On And Off Press B"
+Keybind.TextColor3 = Color3.fromRGB(255, 0, 0)
+Keybind.TextSize = 13.000
+Keybind.TextStrokeColor3 = Color3.fromRGB(255, 0, 0)
+
+UICorner_5.Parent = Keybind
+
+-- Scripts:
+
+local function XCMS_fake_script() -- GUI.Dragging 
+	local script = Instance.new('LocalScript', GUI)
+
+	local UIS = game:GetService('UserInputService')
+	local frame = script.Parent
+	local dragToggle = nil
+	local dragSpeed = 0.25
+	local dragStart = nil
+	local startPos = nil
+	
+	local function updateInput(input)
+		local delta = input.Position - dragStart
+		local position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X,
+			startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+		game:GetService('TweenService'):Create(frame, TweenInfo.new(dragSpeed), {Position = position}):Play()
+	end
+	
+	frame.InputBegan:Connect(function(input)
+		if (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) then 
+			dragToggle = true
+			dragStart = input.Position
+			startPos = frame.Position
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragToggle = false
+				end
+			end)
+		end
+	end)
+	
+	UIS.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			if dragToggle then
+				updateInput(input)
+			end
+		end
+	end)
+end
+coroutine.wrap(XCMS_fake_script)()
+local function RHUNV_fake_script() -- SilentAim.Toggling 
+	local script = Instance.new('LocalScript', SilentAim)
+
+	local Player = game:GetService("Players").LocalPlayer
+	local Mouse = Player:GetMouse()
+	local MainFrame = script.Parent.GUI
+	local keybind = "b"
+	
+	Mouse.KeyDown:Connect(function(key)
+		if key == keybind then
+			if MainFrame.Visible == false then
+				MainFrame.Visible = true
+			else
+				MainFrame.Visible = false
+			end
+		end
+	end)
+end
+coroutine.wrap(RHUNV_fake_script)()
+EnableSilentAim.MouseButton1Down:connect(function()
+	EnableSilentAim.MouseButton1Down:connect(function()
+		function getplrsname()
+			for i,v in pairs(game:GetChildren()) do
+				if v.ClassName == "Players" then
+					return v.Name
+				end
+			end
+		end
+		local players = getplrsname()
+		local plr = game[players].LocalPlayer
+		coroutine.resume(coroutine.create(function()
+			while  wait(1) do
+				coroutine.resume(coroutine.create(function()
+					for _,v in pairs(game[players]:GetPlayers()) do
+						if v.Name ~= plr.Name and v.Character then
+							v.Character.RightUpperLeg.CanCollide = false
+							v.Character.RightUpperLeg.Transparency = 10
+							v.Character.RightUpperLeg.Size = Vector3.new(13,13,13)
+
+							v.Character.LeftUpperLeg.CanCollide = false
+							v.Character.LeftUpperLeg.Transparency = 10
+							v.Character.LeftUpperLeg.Size = Vector3.new(13,13,13)
+
+							v.Character.HeadHB.CanCollide = false
+							v.Character.HeadHB.Transparency = 10
+							v.Character.HeadHB.Size = Vector3.new(13,13,13)
+
+							v.Character.HumanoidRootPart.CanCollide = false
+							v.Character.HumanoidRootPart.Transparency = 10
+							v.Character.HumanoidRootPart.Size = Vector3.new(13,13,13)
+
+						end
+					end
+				end))
+			end
+		end))
+	end)
+
+end)

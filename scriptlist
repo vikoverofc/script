@@ -13,5 +13,8 @@ loadstring(game:HttpGet(\"https://raw.githubusercontent.com/fliskScript/jaran.vi
 não use esse
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Exunys/AirHub/main/AirHub.lua"))()
 
+arsenal silent aim(hitbox expander)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/vikoverofc/script/main/arsenalHITBOXexpand"))()
+
 swimhub/protogen.gay
 loadstring(game:HttpGet("https://raw.githubusercontent.com/vikoverofc/PDscript/main/scriptOP"))()
